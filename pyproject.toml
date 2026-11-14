@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "runway-detection"
+version = "0.1.0"
+description = "Runway detection in approach/landing images: a classical edge/shape detector and a U-Net segmentation model."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "opencv-python-headless>=4.8",
+  "pillow>=10.3",
+]
+
+[project.optional-dependencies]
+ml = [
+  "torch>=2.2",
+  "albumentations>=1.4.4",
+  "matplotlib>=3.7",
+  "tqdm>=4.66.3",
+]
+dev = [
+  "pytest>=8",
+  "ruff>=0.6",
+]
+
+[project.scripts]
+runway-detection = "runway_detection.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "SIM", "RUF"]
