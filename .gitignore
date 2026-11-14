@@ -52,3 +52,20 @@ Thumbs.db
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Data, models and run outputs (never commit these)
+data/
+archive/
+outputs/
+predictions/
+*.pth
+*.pt
+*.ckpt
+submission_results.txt
