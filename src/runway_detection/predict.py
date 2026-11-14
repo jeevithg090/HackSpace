@@ -11,6 +11,9 @@ import torch
 
 from .data import preprocess
 from .model import UNet, load_unet
+from .viz import overlay
+
+__all__ = ["SegmentationResult", "UNetPredictor", "overlay"]
 
 
 @dataclass
@@ -65,11 +68,3 @@ class UNetPredictor:
         prob = cv2.resize(prob, (w, h), interpolation=cv2.INTER_LINEAR)
         prob = np.clip(prob, 0.0, 1.0)
         return SegmentationResult(probability=prob, mask=prob > threshold)
-
-
-def overlay(image_rgb: np.ndarray, mask: np.ndarray, alpha: float = 0.5) -> np.ndarray:
-    """Blend a red highlight over the masked pixels of an RGB image."""
-    out = image_rgb.astype(np.float32).copy()
-    red = np.array([255.0, 0.0, 0.0], dtype=np.float32)
-    out[mask] = (1 - alpha) * out[mask] + alpha * red
-    return out.astype(np.uint8)
